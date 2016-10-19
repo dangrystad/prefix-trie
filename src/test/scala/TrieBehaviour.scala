@@ -9,7 +9,7 @@ class TrieBehaviour extends FlatSpec with Matchers {
   }
 
   "A Trie" should "find prefixes" in {
-    val t = new TrieNode()
+    val t = Trie()
     t.append("0")
     t.append("012")
     t.append("01234")
@@ -23,7 +23,7 @@ class TrieBehaviour extends FlatSpec with Matchers {
   }
 
   "A Trie" should "handle tree structures" in {
-    val t = new TrieNode()
+    val t = Trie()
     t.append("111")
     t.append("122")
     t.append("133")
@@ -34,5 +34,12 @@ class TrieBehaviour extends FlatSpec with Matchers {
     t.findPrefix("1223") should be (Some("122"))
     t.findPrefix("999") should be (None)
     t.findPrefix("") should be (None)
+  }
+
+  "A Trie" should "be efficient" in {
+    val t = Trie();
+    { 1 to 10000 }.foreach(x => t.append(x.toString))
+
+    { 1 to 10000 }.foreach(x => t.findPrefix(x.toString) should be (Some(x.toString)))
   }
 }
